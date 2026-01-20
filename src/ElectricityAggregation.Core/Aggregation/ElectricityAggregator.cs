@@ -2,7 +2,7 @@ namespace ElectricityAggregation.Core.Aggregation;
 
 using ElectricityAggregation.Core.Models;
 
-public class ElectricityAggregator
+public class ElectricityAggregator : IElectricityAggregator
 {
     public IReadOnlyList<AggregatedElectricityUsage> Aggregate(
         IEnumerable<ElectricityRecord> records,

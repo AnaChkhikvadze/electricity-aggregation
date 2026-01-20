@@ -1,4 +1,5 @@
 using ElectricityAggregation.Core.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
@@ -19,6 +20,16 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddCsvParser(this IServiceCollection services)
     {
         services.AddSingleton<ICsvParser, CsvParser>();
+        return services;
+    }
+
+    public static IServiceCollection AddElectricityDataUrlProvider(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        services.Configure<ElectricityDataOptions>(
+            configuration.GetSection(ElectricityDataOptions.SectionName));
+        services.AddSingleton<IElectricityDataUrlProvider, ElectricityDataUrlProvider>();
         return services;
     }
 
